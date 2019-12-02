@@ -38,7 +38,10 @@ if [ -z ${url} ]; then
 fi
 
 dest_file="terraform-provider-rdsdataservice_$version"
-curl $url -L -o $dest_file
+origin_file="terraform-provider-spinnaker_${version}_${kernel_lower}_${ARCH}.tar.gz"
+curl $url -L -o $origin_file
+tar xvf $origin_file
+mv terraform-provider-rdsdataservice $dest_file
 chmod +x $dest_file
 
 mkdir -p $terraform_plugins

@@ -10,7 +10,6 @@ import (
 	"github.com/lib/pq"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform/helper/validation"
 )
 
 var objectTypes = map[string]string{
@@ -52,10 +51,11 @@ func resourceAwsRdsdataservicePostgresGrant() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.StringInSlice([]string{
+				/*ValidateFunc: validation.StringInSlice([]string{
 					"table",
 					"sequence",
 				}, false),
+				*/
 				Description: "The PostgreSQL object type to grant the privileges on (one of: table, sequence)",
 			},
 			"privileges": &schema.Schema{
@@ -112,7 +112,7 @@ func resourceAwsRdsdataservicePostgresGrantCreate(d *schema.ResourceData, meta i
 	}
 
 	sql = fmt.Sprintf(
-		"GRANT %s ON ALL %sS IN SCHEMA %s TO %s",
+		"GRANT %s ON ALL %s IN SCHEMA %s TO %s",
 		strings.Join(privileges, ","),
 		strings.ToUpper(d.Get("object_type").(string)),
 		pq.QuoteIdentifier(d.Get("schema").(string)),
@@ -129,7 +129,7 @@ func resourceAwsRdsdataservicePostgresGrantCreate(d *schema.ResourceData, meta i
 	_, err = rdsdataserviceconn.ExecuteStatement(&createOpts)
 
 	if err != nil {
-		return fmt.Errorf("Error granting priviliges: %s to %s: %#v", grantingRole, d.Get("name").(string), err)
+		return fmt.Errorf("Error granting priviliges: %s to %s: %#v", strings.Join(privileges, ","), d.Get("name").(string), err)
 	}
 
 	d.SetId(generateGrantID(d))

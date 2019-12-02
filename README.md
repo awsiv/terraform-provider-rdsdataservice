@@ -1,5 +1,11 @@
 # terraform-provider-rdsdataservice
-Manage Postgres db resources using the AWS Data API - Heavily inspired by [terraform-provider-postgresql] (https://github.com/terraform-providers/terraform-provider-postgresql)
+Manage Postgres db resources using the AWS Data API - Heavily inspired by [terraform-provider-postgresql](https://github.com/terraform-providers/terraform-provider-postgresql)
+
+[AWS Data API](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html) allows us to run SQL using HTTP endpoint and AWS SDKs. This is awesome because it means that we no longer need to manage connections :).
+
+I have tried to put together a PoC here. Since it uses AWS SDK, it might  as well belong to terraform-provider-aws itself, but then, the CRUD operations are SQL statements instead of actual API calls - so maybe it has its own place? I am working on porting more resources and more importantly the acceptance tests. Let me know what you think about it :)
+
+API documentation: [package rdsdataservice](https://godoc.org/github.com/aws/aws-sdk-go/service/rdsdataservice)
 
 ## Requirements ##
 Terraform 0.12+

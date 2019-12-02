@@ -182,65 +182,7 @@ func resourceAwsRdsdataservicePostgresGrantRead(d *schema.ResourceData, meta int
 		d.SetId("")
 		return nil
 	}
-	return readRolePrivileges(txn, d)
-}
-
-func resourceAwsRdsdataservicePostgresRoleUpdate(d *schema.ResourceData, meta interface{}) error {
-	rdsdataserviceconn := meta.(*AWSClient).rdsdataserviceconn
-
-	// TODO: run this in transaction
-
-	if d.HasChange("name") {
-		oraw, nraw := d.GetChange("name")
-		o := oraw.(string)
-		n := nraw.(string)
-		if n == "" {
-			return fmt.Errorf("Error setting role name to an empty string")
-		}
-
-		sql := fmt.Sprintf("ALTER ROLE %s RENAME TO %s", o, n)
-
-		createOpts := rdsdataservice.ExecuteStatementInput{
-			ResourceArn: aws.String(d.Get("resource_arn").(string)),
-			SecretArn:   aws.String(d.Get("secret_arn").(string)),
-			Sql:         aws.String(sql),
-		}
-
-		log.Printf("[DEBUG] Update Postgres Role name: %#v", createOpts)
-
-		_, err := rdsdataserviceconn.ExecuteStatement(&createOpts)
-
-		if err != nil {
-			return fmt.Errorf("Error updating Postgres Role name: %#v", err)
-		}
-		d.SetId(n)
-	}
-	// TODO: Store secret arn for role in tfstate
-	if d.HasChange("login") {
-		login := d.Get("login").(bool)
-		tok := "NOLOGIN"
-		if login {
-			tok = "LOGIN"
-		}
-
-		sql := fmt.Sprintf("ALTER ROLE %s WITH %s", d.Get("name").(string), tok)
-
-		createOpts := rdsdataservice.ExecuteStatementInput{
-			ResourceArn: aws.String(d.Get("resource_arn").(string)),
-			SecretArn:   aws.String(d.Get("secret_arn").(string)),
-			Sql:         aws.String(sql),
-		}
-
-		log.Printf("[DEBUG] Update Postgres Role login: %#v", createOpts)
-
-		_, err := rdsdataserviceconn.ExecuteStatement(&createOpts)
-
-		if err != nil {
-			return fmt.Errorf("Error updating Postgres Role login: %#v", err)
-		}
-	}
-
-	return nil
+	return readRolePrivileges(d, meta)
 }
 
 func checkRoleDBSchemaExists(d *schema.ResourceData, meta interface{}) (bool, error) {
@@ -321,27 +263,7 @@ GROUP BY pg_class.relname;
 		return nil
 	}
 
-	for rows.Next() {
-		var objName string
-		var privileges pq.ByteaArray
-
-		if err := rows.Scan(&objName, &privileges); err != nil {
-			return err
-		}
-		privilegesSet := pgArrayToSet(privileges)
-
-		if !privilegesSet.Equal(d.Get("privileges").(*schema.Set)) {
-			// If any object doesn't have the same privileges as saved in the state,
-			// we return an empty privileges to force an update.
-			log.Printf(
-				"[DEBUG] %s %s has not the expected privileges %v for role %s",
-				strings.ToTitle(objectType), objName, privileges, d.Get("role"),
-			)
-			d.Set("privileges", schema.NewSet(schema.HashString, []interface{}{}))
-			break
-		}
-
-	}
+	// TODO: Complete this :)
 
 	return nil
 }

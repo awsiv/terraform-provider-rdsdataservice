@@ -12,3 +12,6 @@
 *.out
 
 /dist
+vendor/*
+
+terraform-provider-rdsdataservice

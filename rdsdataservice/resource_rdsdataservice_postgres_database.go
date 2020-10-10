@@ -25,23 +25,23 @@ func resourceAwsRdsdataservicePostgresDatabase() *schema.Resource {
 			"name": {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "The PostgreSQL database name to connect to",
+				Description: "Database name.",
 			},
 			"resource_arn": {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "The PostgreSQL database name to connect to",
+				Description: "DB ARN.",
 			},
 			"secret_arn": {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "The PostgreSQL database name to connect to",
+				Description: "DBA Secret ARN.",
 			},
 			"owner": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Default:     "postgres",
-				Description: "The ROLE which owns the database",
+				Description: "The ROLE which owns the database.",
 			},
 		},
 	}

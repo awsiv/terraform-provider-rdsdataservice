@@ -1,6 +1,11 @@
 # terraform-provider-rdsdataservice
 
-Manage AWS DB resources using the AWS Data API - Heavily inspired by [terraform-provider-postgresql](https://github.com/terraform-providers/terraform-provider-postgresql)
+Manage AWS DB resources using the [AWS Data API](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html). Connect using methods supported by Data API(secrets manager) and manage a variety of resources using a single provider without having to use multiple providers for different DB types.
+
+Heavily inspired by the following:
+
+- [terraform-provider-aws](https://github.com/terraform-providers/terraform-provider-aws) - Provider configutation and connectivity
+- [terraform-provider-postgresql](https://github.com/terraform-providers/terraform-provider-postgresql) - DB specific actions and tests
 
 [AWS Data API](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html) allows us to run SQL using HTTP endpoint and AWS SDK. This is awesome because it means that we no longer need to manage connections. This also uses secretsmanager secret so we no longer have to worry about secrets ending up in terraform state.
 

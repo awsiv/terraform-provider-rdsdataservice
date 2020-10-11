@@ -21,7 +21,7 @@ KERNEL=$(echo $kernel | tr "[:upper:]" "[:lower:]")
 terraform_plugins="$HOME/.terraform.d/plugins/${KERNEL}_$ARCH/"
 
 # IFS= preserve newlines
-IFS= manifest=$(curl -s https://api.github.com/repos/awsiv/terraform-provider-rdsdataservice/releases/latest)
+IFS= manifest=$(curl -s https://api.github.com/repos/awsiv/terraform-provider-dataapi/releases/latest)
 
 url=$(echo $manifest \
 | grep "browser_download_url.*${KERNEL}_${ARCH}" \
@@ -37,11 +37,11 @@ if [ -z ${url} ]; then
   exit 1
 fi
 
-dest_file="terraform-provider-rdsdataservice_$version"
-origin_file="terraform-provider-rdsdataservice_${version}_${KERNEL}_${ARCH}.tar.gz"
+dest_file="terraform-provider-dataapi_$version"
+origin_file="terraform-provider-dataapi_${version}_${KERNEL}_${ARCH}.tar.gz"
 curl $url -L -o $origin_file
 tar xvf $origin_file
-mv terraform-provider-rdsdataservice $dest_file
+mv terraform-provider-dataapi $dest_file
 chmod +x $dest_file
 
 mkdir -p $terraform_plugins

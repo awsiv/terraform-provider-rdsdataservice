@@ -1,15 +1,15 @@
 ---
-page_title: "rdsdataservice_postgres_role"
+page_title: "dataapi_postgres_role"
 ---
 
-# rdsdataservice_postgres_role Resource
+# dataapi_postgres_role Resource
 
 Manage postgres roles
 
 ## Example Usage
 
 ```hcl
-resource "rdsdataservice_postgres_role" "test" {
+resource "dataapi_postgres_role" "test" {
   name         = "test"
   resource_arn = var.db_arn
   secret_arn   = var.secret_arn

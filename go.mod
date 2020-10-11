@@ -1,9 +1,10 @@
-module github.com/awsiv/terraform-provider-rdsdataservice
+module github.com/awsiv/terraform-provider-dataapi
 
 go 1.13
 
 require (
 	github.com/aws/aws-sdk-go v1.35.7
+	github.com/awsiv/terraform-provider-rdsdataservice v1.0.2
 	github.com/hashicorp/aws-sdk-go-base v0.7.0
 	github.com/hashicorp/go-cleanhttp v0.5.1
 	github.com/hashicorp/terraform v0.13.4

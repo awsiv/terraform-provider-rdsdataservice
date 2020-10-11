@@ -1,15 +1,15 @@
 ---
-page_title: "rdsdataservice_postgres_database"
+page_title: "dataapi_postgres_database"
 ---
 
-# rdsdataservice_postgres_database Resource
+# dataapi_postgres_database Resource
 
 Manage postgres databases
 
 ## Example Usage
 
 ```hcl
-resource "rdsdataservice_postgres_database" "test" {
+resource "dataapi_postgres_database" "test" {
   name         = "test"
   resource_arn = var.db_arn
   secret_arn   = var.secret_arn

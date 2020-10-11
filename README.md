@@ -1,4 +1,4 @@
-# terraform-provider-rdsdataservice
+# terraform-provider-dataapi
 
 Manage AWS DB resources using the [AWS Data API](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html). Connect using methods supported by Data API(secrets manager) and manage a variety of resources using a single provider without having to use multiple providers for different DB types.
 
@@ -11,7 +11,7 @@ Heavily inspired by the following:
 
 Since it uses AWS SDK, it might as well belong to terraform-provider-aws itself, but then, the CRUD operations are SQL statements instead of actual API calls - so maybe it has its own place? I am working on porting more resources and more importantly the acceptance tests. Let me know what you think about it :)
 
-API documentation: [package rdsdataservice](https://godoc.org/github.com/aws/aws-sdk-go/service/rdsdataservice)
+API documentation: [package rdsdataservice](https://godoc.org/github.com/aws/aws-sdk-go/service/dataapi)
 
 ## Requirements
 
@@ -23,24 +23,24 @@ Go 1.13 (to build the provider plugin)
 You will need to install the binary as a [terraform third party plugin](https://www.terraform.io/docs/configuration/providers.html#third-party-plugins). Terraform will then pick up the binary from the local filesystem when you run `terraform init`.
 
 ```sh
-curl -s https://raw.githubusercontent.com/awsiv/terraform-provider-rdsdataservice/master/install.sh | bash
+curl -s https://raw.githubusercontent.com/awsiv/terraform-provider-dataapi/master/install.sh | bash
 ```
 
 ## Usage
 
 ```terraform
-provider "rdsdataservice" {
+provider "dataapi" {
   version = "1.0.2"
   region  = var.aws_region
   profile = var.aws_profile
 }
-resource "rdsdataservice_postgres_database" "test" {
+resource "dataapi_postgres_database" "test" {
   name         = "test"
   resource_arn = var.db_arn
   secret_arn   = var.secret_arn
   owner        = "postgres"
 }
-resource "rdsdataservice_postgres_role" "test" {
+resource "dataapi_postgres_role" "test" {
   name         = "test"
   resource_arn = var.db_arn
   secret_arn   = var.secret_arn
@@ -52,7 +52,7 @@ resource "rdsdataservice_postgres_role" "test" {
 ## Building The Provider
 
 ```bash
-$ git clone git@github.com:awsiv/terraform-provider-rdsdataservice.git
-$ cd terraform-provider-rdsdataservice
+$ git clone git@github.com:awsiv/terraform-provider-dataapi.git
+$ cd terraform-provider-dataapi
 $ go build
 ```

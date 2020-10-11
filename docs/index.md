@@ -16,20 +16,20 @@ Due to this, we have the following advantages:
 ## Example Usage
 
 ```hcl
-provider "rdsdataservice" {
+provider "dataapi" {
     version = "1.0.2"
     region  = var.aws_region
     profile = var.aws_profile
 }
 
-resource "rdsdataservice_postgres_database" "test" {
+resource "dataapi_postgres_database" "test" {
     name         = "test"
     resource_arn = var.db_arn
     secret_arn   = var.secret_arn
     owner        = "postgres"
 }
 
-resource "rdsdataservice_postgres_role" "test" {
+resource "dataapi_postgres_role" "test" {
     name         = "test"
     resource_arn = var.db_arn
     secret_arn   = var.secret_arn

@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/aws/aws-sdk-go v1.35.7
 	github.com/hashicorp/aws-sdk-go-base v0.7.0
+	github.com/hashicorp/terraform v0.13.4
 	github.com/hashicorp/terraform-plugin-sdk v1.4.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.0.4
 	github.com/lib/pq v1.0.0

@@ -3,9 +3,9 @@ package rdsdataservice
 import (
 	"log"
 
+	"github.com/awsiv/terraform-provider-rdsdataservice/rdsdataservice/internal/mutexkv"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	homedir "github.com/mitchellh/go-homedir"
-	"github.com/terraform-providers/terraform-provider-rdsdataservice/rdsdataservice/internal/mutexkv"
 )
 
 // Provider returns a terraform.ResourceProvider.

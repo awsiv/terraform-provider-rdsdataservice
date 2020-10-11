@@ -1,6 +1,6 @@
 # terraform-provider-rdsdataservice
 
-Manage Postgres db resources using the AWS Data API - Heavily inspired by [terraform-provider-postgresql](https://github.com/terraform-providers/terraform-provider-postgresql)
+Manage AWS DB resources using the AWS Data API - Heavily inspired by [terraform-provider-postgresql](https://github.com/terraform-providers/terraform-provider-postgresql)
 
 [AWS Data API](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html) allows us to run SQL using HTTP endpoint and AWS SDK. This is awesome because it means that we no longer need to manage connections. This also uses secretsmanager secret so we no longer have to worry about secrets ending up in terraform state.
 
@@ -25,7 +25,7 @@ curl -s https://raw.githubusercontent.com/awsiv/terraform-provider-rdsdataservic
 
 ```terraform
 provider "rdsdataservice" {
-  version = "1.0.0"
+  version = "1.0.2"
   region  = var.aws_region
   profile = var.aws_profile
 }
@@ -42,4 +42,12 @@ resource "rdsdataservice_postgres_role" "test" {
   login        = true
 }
 
+```
+
+## Building The Provider
+
+```bash
+$ git clone git@github.com:awsiv/terraform-provider-rdsdataservice.git
+$ cd terraform-provider-rdsdataservice
+$ go build
 ```

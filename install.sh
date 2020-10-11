@@ -17,14 +17,14 @@ if [ $kernel != "Darwin" ] && [ $kernel != "Linux" ]; then
   exit 1
 fi
 
-kernel_lower=$(echo $kernel | tr "[:upper:]" "[:lower:]")
-terraform_plugins="$HOME/.terraform.d/plugins/${kernel_lower}_$ARCH/"
+KERNEL=$(echo $kernel | tr "[:upper:]" "[:lower:]")
+terraform_plugins="$HOME/.terraform.d/plugins/${KERNEL}_$ARCH/"
 
 # IFS= preserve newlines
 IFS= manifest=$(curl -s https://api.github.com/repos/awsiv/terraform-provider-rdsdataservice/releases/latest)
 
 url=$(echo $manifest \
-| grep "browser_download_url.*${kernel}_${arch}" \
+| grep "browser_download_url.*${KERNEL}_${ARCH}" \
 | cut -d '"' -f 4 \
 )
 version=$(echo $manifest \
@@ -33,12 +33,12 @@ version=$(echo $manifest \
 )
 
 if [ -z ${url} ]; then
-  echo "no build for this kernel/arch: ${kernel}_${arch}"
+  echo "no build for this kernel/arch: ${KERNEL}_${ARCH}"
   exit 1
 fi
 
 dest_file="terraform-provider-rdsdataservice_$version"
-origin_file="terraform-provider-spinnaker_${version}_${kernel_lower}_${ARCH}.tar.gz"
+origin_file="terraform-provider-rdsdataservice_${version}_${KERNEL}_${ARCH}.tar.gz"
 curl $url -L -o $origin_file
 tar xvf $origin_file
 mv terraform-provider-rdsdataservice $dest_file

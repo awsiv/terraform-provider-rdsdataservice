@@ -17,7 +17,7 @@ Due to this, we have the following advantages:
 
 ```hcl
 provider "rdsdataservice" {
-    version = "1.0.0"
+    version = "1.0.2"
     region  = var.aws_region
     profile = var.aws_profile
 }

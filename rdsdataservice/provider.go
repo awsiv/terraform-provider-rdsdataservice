@@ -3,14 +3,13 @@ package rdsdataservice
 import (
 	"log"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/mutexkv"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/terraform-providers/terraform-provider-rdsdataservice/rdsdataservice/internal/mutexkv"
 )
 
 // Provider returns a terraform.ResourceProvider.
-func Provider() terraform.ResourceProvider {
+func Provider() *schema.Provider {
 	// TODO: Move the validation to this, requires conditional schemas
 	// TODO: Move the configuration to this, requires validation
 
@@ -226,18 +225,6 @@ func init() {
 			"i.e., http://s3.amazonaws.com/BUCKET/KEY. By default, the S3 client will\n" +
 			"use virtual hosted bucket addressing when possible\n" +
 			"(http://BUCKET.s3.amazonaws.com/KEY). Specific to the Amazon S3 service.",
-
-		"assume_role_role_arn": "The ARN of an IAM role to assume prior to making API calls.",
-
-		"assume_role_session_name": "The session name to use when assuming the role. If omitted," +
-			" no session name is passed to the AssumeRole call.",
-
-		"assume_role_external_id": "The external ID to use when assuming the role. If omitted," +
-			" no external ID is passed to the AssumeRole call.",
-
-		"assume_role_policy": "The permissions applied when assuming a role. You cannot use," +
-			" this policy to grant further permissions that are in excess to those of the, " +
-			" role that is being assumed.",
 	}
 
 	endpointServiceNames = []string{

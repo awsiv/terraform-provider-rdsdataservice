@@ -58,7 +58,7 @@ func resourceAwsRdsdataservicePostgresGrant() *schema.Resource {
 				*/
 				Description: "The PostgreSQL object type to grant the privileges on (one of: table, sequence)",
 			},
-			"privileges": &schema.Schema{
+			"privileges": {
 				Type:        schema.TypeSet,
 				Required:    true,
 				Elem:        &schema.Schema{Type: schema.TypeString},
